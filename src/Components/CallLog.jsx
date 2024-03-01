@@ -22,9 +22,10 @@ const CallLog = () => {
     }, 5000);
   }
   if (callDetails.callId != "") {
-    console.log("Call Details 2");
+    console.log("Call Details");
     console.log(callDetails);
   }
+
   window.addEventListener("message", (e) => {
     const data = e.data;
 
@@ -32,6 +33,19 @@ const CallLog = () => {
       switch (data.type) {
         case "zp-call-ringing-event": // listen to all the event types that you need
           setCallStatus("Call Ringing");
+          setCallDetails({
+            callId: "",
+            direction: "",
+            caller: {
+              name: "",
+              phoneNumber: "",
+            },
+            callee: {
+              phoneNumber: "",
+            },
+            dateTime: "",
+            result: "",
+          });
           console.log("Call Ringing");
           break;
         case "zp-call-connected-event":
@@ -43,8 +57,6 @@ const CallLog = () => {
           console.log("Call Ended");
           break;
         case "zp-call-log-completed-event":
-          console.log("Call Details");
-          console.log(data.data);
           setCallDetails({
             ...callDetails,
             callId: data.data.callId,
@@ -73,7 +85,7 @@ const CallLog = () => {
       ) : null}
       {callDetails.callId != "" ? (
         <div className="call-details">
-          <h3>Call Details: </h3>
+          <h3>Last Call Details: </h3>
           <ul>
             <li>Call ID: {callDetails.callId}</li>
             <li>Direction: {callDetails.direction}</li>
