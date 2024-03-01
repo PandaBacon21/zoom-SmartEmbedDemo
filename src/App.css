@@ -1,12 +1,53 @@
 #root {
-  max-width: 1280px;
+  max-width: 1500x;
   height: 100vh;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0rem;
   text-align: center;
+  background-image: url("zoom_logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #phone-number:hover {
   color: #2d8cff;
   cursor: pointer;
+}
+
+#call-log-container {
+  box-sizing: border-box;
+  border: 2px solid;
+  border-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  margin: 5px;
+  padding: 2rem;
+  position: fixed;
+  width: 25%;
+  height: 75vh;
+  background-color: #2d8cff;
+  text-align: center;
+}
+
+#phone-number-input {
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+}
+
+.btn {
+  margin-top: 1rem;
+  border: 1px solid;
+  border-color: black;
+  border-radius: 5px;
+  background-color: #0071fa;
+  cursor: pointer;
+}
+
+.call-details ul {
+  list-style-type: none;
+  text-align: left;
+}
+
+.call-details ul li {
+  margin-top: 1rem;
 }

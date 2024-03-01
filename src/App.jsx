@@ -1,7 +1,14 @@
+import { useState } from "react";
 import "./App.css";
 import CallLog from "./Components/CallLog";
 
 function App() {
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [displayNumber, setDisplayNumber] = useState("");
+
+  const displayPhoneNumber = () => {
+    setDisplayNumber(phoneNumber);
+  };
   document
     .querySelector("iframe#zoom-embeddable-phone-iframe")
     .contentWindow.postMessage(
@@ -44,8 +51,6 @@ function App() {
       "https://applications.zoom.us"
     );
 
-  const phoneNumber = "<PhoneNumberHere>";
-
   const clickToDial = () => {
     document
       .querySelector("iframe#zoom-embeddable-phone-iframe")
@@ -65,14 +70,47 @@ function App() {
   return (
     <>
       <div>
-        <h1>Smart Embed Demo</h1>
-        <h2>Click to Call Me Here:</h2>
-        <h2>
-          <a id="phone-number" onClick={clickToDial}>
-            {phoneNumber}
-          </a>
-        </h2>
-        <CallLog />
+        <h1>Zoom Phone Smart Embed Demo</h1>
+        {displayNumber === "" ? (
+          <>
+            {" "}
+            <div>
+              <label id="input-label">
+                Add Phone Number to Test Click to Dial:{" "}
+              </label>
+              <input
+                type="text"
+                id="phone-number-input"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
+            </div>
+            <button type="button" className="btn" onClick={displayPhoneNumber}>
+              Set Phone Number
+            </button>
+          </>
+        ) : (
+          <>
+            <h2>Click to Call Here:</h2>
+            <h2>
+              <a id="phone-number" onClick={clickToDial}>
+                {displayNumber}
+              </a>
+            </h2>
+            <button
+              type="button"
+              className="btn"
+              onClick={() => {
+                setDisplayNumber("");
+              }}
+            >
+              Clear Phone Number
+            </button>
+          </>
+        )}
+        <div id="call-log-container">
+          <CallLog />
+        </div>
       </div>
     </>
   );
